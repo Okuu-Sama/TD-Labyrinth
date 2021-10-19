@@ -14,7 +14,7 @@ public class LevelManager : MonoBehaviour
     private float maxDistance = 0f;
     private Vector3 position;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
        
         int gridWidth = 10;
@@ -104,8 +104,9 @@ public class LevelManager : MonoBehaviour
             }
         }
         Debug.Log("Max distance is " + maxDistance + " at index "+ indexI + " "+indexJ);
-        //navMeshAgent.Warp(new Vector3(0f,0f,0f));
-        navMeshAgent.SetDestination(position);
+        navMeshAgent.Warp(new Vector3(0f,0f,0f));
+        //navMeshAgent.SetDestination(position);
+        
     }
 
     // Update is called once per frame
