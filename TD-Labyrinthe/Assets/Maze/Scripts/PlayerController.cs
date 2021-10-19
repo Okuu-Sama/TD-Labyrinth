@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,6 +24,11 @@ public class PlayerController : MonoBehaviour
         goForward();
         rotateLeft();
         rotateRight();
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        SceneManager.LoadScene("MazeScene");
     }
 
     void goForward() 

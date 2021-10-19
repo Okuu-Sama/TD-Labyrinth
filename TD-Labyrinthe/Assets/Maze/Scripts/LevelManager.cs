@@ -17,8 +17,8 @@ public class LevelManager : MonoBehaviour
     void Awake()
     {
        
-        int gridWidth = 10;
-        int gridHeight = 10;
+        int gridWidth = 5;
+        int gridHeight = 5;
         int[,] grid = new int[gridWidth, gridHeight];
         for (int i = 0; i < gridWidth; i++)
         {
@@ -105,6 +105,10 @@ public class LevelManager : MonoBehaviour
         }
         Debug.Log("Max distance is " + maxDistance + " at index "+ indexI + " "+indexJ);
         navMeshAgent.Warp(new Vector3(0f,0f,0f));
+        GameObject collider = Instantiate(GameObject.CreatePrimitive(PrimitiveType.Cube), new Vector3(position.x, position.y+3,position.z), Quaternion.identity);
+        collider.transform.localScale=new Vector3(4f,4f,4f);
+        collider.GetComponent<MeshRenderer>().enabled = false;
+        collider.GetComponent<BoxCollider>().isTrigger = true;
         //navMeshAgent.SetDestination(position);
         
     }
