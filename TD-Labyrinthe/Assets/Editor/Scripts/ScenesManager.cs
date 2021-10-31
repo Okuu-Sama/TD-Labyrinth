@@ -1,9 +1,11 @@
+using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.SceneManagement;
-using UnityEditor;
-using System.IO;
 using UnityEngine;
+using UnityEditor;
+using System.Linq;
+using System.IO;
 
 public class ScenesManager : EditorWindow
 {
@@ -18,6 +20,7 @@ public class ScenesManager : EditorWindow
 
     private void OnGUI()
     {
+        
         GUILayout.BeginVertical();
 
         GUILayout.BeginHorizontal("");
@@ -63,7 +66,7 @@ public class ScenesManager : EditorWindow
                     if(EditorSceneManager.sceneCount == 1 && !scene.displayNext)
                     {
                         
-                        GetWindow<ScenesManager>().ShowNotification(new GUIContent("STOP DOING SHIT"));
+                        GetWindow<ScenesManager>().ShowNotification(new GUIContent("ERROR: can't close the last opened scene"));
                         scene.isOpen = true;
                     }
                     else
@@ -88,6 +91,7 @@ public class ScenesManager : EditorWindow
         listOfScene.Clear();
         foreach(var scene in EditorBuildSettings.scenes)
         {
+            Debug.Log(scene.path);
             listOfScene.Add(new SceneData(Path.GetFileNameWithoutExtension(scene.path),
                                           scene.path,
                                           false,
@@ -104,6 +108,30 @@ public class ScenesManager : EditorWindow
                 listOfScene[sceneIndex].displayNext = false;
             }
         }
+    }
+
+    [MenuItem("Assets/Scene/Add to build", false)]
+    static void AddToBuild()
+    {
+        SceneAsset selectedObj = (Selection.activeObject is SceneAsset) ? (SceneAsset)Selection.activeObject : null;
+        Debug.Log(selectedObj.name);
+        if (selectedObj is null) return;
+        if (EditorBuildSettings.scenes.Any(s => s.path == AssetDatabase.GetAssetPath(selectedObj)))
+        {
+            GetWindow<EditorWindow>().ShowNotification(new GUIContent("ERROR: Scene is already in build"));
+            return;
+        }
+
+        var listOfScene = EditorBuildSettings.scenes.ToList();
+        listOfScene.Add(new EditorBuildSettingsScene(AssetDatabase.GetAssetPath(selectedObj), true));
+        EditorBuildSettings.scenes = listOfScene.ToArray();
+
+    }
+    [MenuItem("Assets/Scene/Add to build", true)] 
+    static bool AddToBuildValidate()
+    {
+        if (Selection.activeObject is SceneAsset) return true;
+        return false;
     }
 
 }
