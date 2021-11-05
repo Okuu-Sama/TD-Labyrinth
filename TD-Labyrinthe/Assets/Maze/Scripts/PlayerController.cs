@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.UpArrow))
         {
-            navMeshAgent.velocity += monkey.transform.forward/80;
+            navMeshAgent.velocity += monkey.transform.forward*0.01f;
         }
     }
 
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            navMeshAgent.velocity -= monkey.transform.forward/50;
+            navMeshAgent.velocity -= monkey.transform.forward*0.01f;
         }
     }
 
