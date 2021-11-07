@@ -1,20 +1,30 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     private GameObject monkey;
     private NavMeshAgent navMeshAgent;
+    private int pickedUpBanana = 0;
+    private int totalBanana;
+    [SerializeField]
+    private Text totalBananasText;
+    [SerializeField]
+    private Text levelBananasText;
+    private string totalBananaFile;
     // Start is called before the first frame update
     void Start()
     {
         monkey = GameObject.Find("Monkey");
         navMeshAgent = monkey.GetComponent<NavMeshAgent>();
-        
-        
+        string bananasFile = System.IO.File.ReadAllText("Assets/Maze/Data/bananas.txt");
+        totalBanana = Int32.Parse(bananasFile);
+
     }
 
     // Update is called once per frame
@@ -28,7 +38,22 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        SceneManager.LoadScene("MazeScene");
+        if (collider.gameObject.name == "Exit")
+        {
+            pickedUpBanana = 0;
+            SceneManager.LoadScene("MazeScene");
+        }
+        if (collider.gameObject.name== "Banana(Clone)") 
+        {
+            Destroy(collider.gameObject);
+            pickedUpBanana++;
+            totalBanana++;
+            System.IO.File.WriteAllText("Assets/Maze/Data/bananas.txt", totalBanana.ToString());
+            totalBananasText.text = "Total: " + totalBanana.ToString();
+            levelBananasText.text = "Level: " + pickedUpBanana.ToString();
+            //Debug.Log("Bananas of this level = " + pickedUpBanana + " Total bananas = " + totalBanana);
+        }
+        
     }
 
     void goForward() 

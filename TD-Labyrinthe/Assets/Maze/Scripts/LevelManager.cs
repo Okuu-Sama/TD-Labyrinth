@@ -11,6 +11,9 @@ public class LevelManager : MonoBehaviour
     private GameObject groundPrefab;
     [SerializeField]
     private GameObject wallPrefab;
+    [SerializeField]
+    private GameObject bananaPrefab;
+    private int bananaNumber;
     private float maxDistance = 0f;
     private Vector3 position;
     // Start is called before the first frame update
@@ -50,7 +53,7 @@ public class LevelManager : MonoBehaviour
                 gridCopy[i,j] = grid[i, j];
             }
         }
-        System.IO.File.WriteAllText("Assets/maze.txt", text);
+        System.IO.File.WriteAllText("Assets/Maze/Data/maze.txt", text);
 
         instanciateMaze(gridCopy, gridWidth, gridHeight);
         GameObject maze = GameObject.Find("Maze");
@@ -80,6 +83,7 @@ public class LevelManager : MonoBehaviour
         
         int indexI = 0;
         int indexJ = 0;
+        //Computation of maximum distance among all the dead ends
         for (int i = 0; i < gridWidth; i++)
         {
             for (int j = 0; j < gridHeight; j++)
@@ -104,13 +108,41 @@ public class LevelManager : MonoBehaviour
             }
         }
         Debug.Log("Max distance is " + maxDistance + " at index "+ indexI + " "+indexJ);
+        //Instantiating the exit of the maze
         navMeshAgent.Warp(new Vector3(0f,0f,0f));
         GameObject collider = Instantiate(GameObject.CreatePrimitive(PrimitiveType.Cube), new Vector3(position.x, position.y+3,position.z), Quaternion.identity);
+        collider.name = "Exit";
         collider.transform.localScale=new Vector3(4f,4f,4f);
         collider.GetComponent<MeshRenderer>().enabled = false;
         collider.GetComponent<BoxCollider>().isTrigger = true;
+        //Instantiating bananas at all dead ends except at the exit of the maze
+        for (int i = 0; i < gridWidth; i++)
+        {
+            for (int j = 0; j < gridHeight; j++)
+            {
+                if (deadEnd[i, j] ==true)
+                {
+                    NavMeshPath path = new NavMeshPath();
+                    Debug.Log("Dead end at index " + i + " " + j);
+
+                    navMeshAgent.CalculatePath(new Vector3(5 * i, 0, 5 * j), path);
+                    navMeshAgent.SetPath(path);
+                    float distance = ExtensionScript.GetPathRemainingDistance(navMeshAgent);
+                    //Debug.Log("Distance =  " +distance);
+                    //If it's not the start or the end of the maze
+                    if ( (i,j)!=(0,0) && (i,j)!=(position.x/5,position.z/5))
+                    {
+                        Debug.Log("Adding banana at " + i + ", "+j);
+                        bananaNumber++;
+                        GameObject banana = Instantiate(bananaPrefab, new Vector3(5 * i, 1, 5 * j), Quaternion.identity);
+                        
+                    }
+                }
+            }
+        }
+        navMeshAgent.Warp(new Vector3(0f, 0f, 0f));
         //navMeshAgent.SetDestination(position);
-        
+
     }
 
     // Update is called once per frame

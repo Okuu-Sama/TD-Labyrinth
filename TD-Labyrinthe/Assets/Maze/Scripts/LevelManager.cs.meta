@@ -3,7 +3,10 @@ guid: 8c8d6a64bf5d8544983e1c942b1fad17
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - groundPrefab: {instanceID: 0}
+  - wallPrefab: {instanceID: 0}
+  - bananaPrefab: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
