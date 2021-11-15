@@ -320,5 +320,9 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public int GetBananaNumber()
+    {
+        return bananaNumber;
+    }
     
 }

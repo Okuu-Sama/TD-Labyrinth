@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     private Text totalBananasText;
     [SerializeField]
     private Text levelBananasText;
+    [SerializeField]
+    private GameObject turtlePrefab;
     private string totalBananaFile;
     // Start is called before the first frame update
     void Start()
@@ -38,7 +40,9 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.gameObject.name == "Exit")
+        LevelManager levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
+        Debug.Log("nb of banana in lvl: " + levelManager.GetBananaNumber());
+        if (collider.gameObject.name == "Exit" && levelManager.GetBananaNumber() == pickedUpBanana)
         {
             pickedUpBanana = 0;
             SceneManager.LoadScene("MazeScene");
@@ -49,11 +53,19 @@ public class PlayerController : MonoBehaviour
             pickedUpBanana++;
             totalBanana++;
             System.IO.File.WriteAllText("Assets/Maze/Data/bananas.txt", totalBanana.ToString());
-            totalBananasText.text = "Total: " + totalBanana.ToString();
-            levelBananasText.text = "Level: " + pickedUpBanana.ToString();
+            totalBananasText.text = "Player total: " + totalBanana.ToString();
+            levelBananasText.text = "Current banana number: " + pickedUpBanana.ToString();
             //Debug.Log("Bananas of this level = " + pickedUpBanana + " Total bananas = " + totalBanana);
+
+            if(pickedUpBanana == levelManager.GetBananaNumber())
+            {
+                Vector3 turtleSpawn = monkey.transform.position;
+                turtleSpawn.y += 5f;
+                GameObject Turtle = Instantiate(turtlePrefab, turtleSpawn, Quaternion.identity);
+            }
+
         }
-        
+
     }
 
     void goForward() 
