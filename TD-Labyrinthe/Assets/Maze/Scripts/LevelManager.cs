@@ -111,6 +111,8 @@ public class LevelManager : MonoBehaviour
         //Instantiating the exit of the maze
         navMeshAgent.Warp(new Vector3(0f,0f,0f));
         GameObject collider = Instantiate(GameObject.CreatePrimitive(PrimitiveType.Cube), new Vector3(position.x, position.y+3,position.z), Quaternion.identity);
+        GameObject cube = GameObject.Find("Cube");
+        cube.SetActive(false);
         collider.name = "Exit";
         collider.transform.localScale=new Vector3(4f,4f,4f);
         collider.GetComponent<MeshRenderer>().enabled = false;

@@ -69,8 +69,8 @@ public class PlayerController : MonoBehaviour
             pickedUpBanana++;
             totalBanana++;
             System.IO.File.WriteAllText("Assets/Maze/Data/bananas.txt", totalBanana.ToString());
-            totalBananasText.text = "Player total: " + totalBanana.ToString();
-            levelBananasText.text = "Current banana number: " + pickedUpBanana.ToString();
+            totalBananasText.text = totalBanana.ToString();
+            levelBananasText.text = pickedUpBanana.ToString();
             //Debug.Log("Bananas of this level = " + pickedUpBanana + " Total bananas = " + totalBanana);
 
             if(pickedUpBanana == levelManager.GetBananaNumber())
