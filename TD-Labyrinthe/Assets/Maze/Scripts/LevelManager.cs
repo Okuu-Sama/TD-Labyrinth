@@ -134,7 +134,7 @@ public class LevelManager : MonoBehaviour
                     {
                         Debug.Log("Adding banana at " + i + ", "+j);
                         bananaNumber++;
-                        GameObject banana = Instantiate(bananaPrefab, new Vector3(5 * i, 1, 5 * j), Quaternion.identity);
+                        GameObject banana = Instantiate(bananaPrefab, new Vector3(5 * i, 1f, 5 * j), Quaternion.identity);
                         
                     }
                 }

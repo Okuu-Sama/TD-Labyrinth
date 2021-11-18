@@ -15,11 +15,12 @@ public class MonsterIABehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //gameObject.transform.position = transform.position + new Vector3(0f,1f,0f);
+        
         navMeshSurface = GameObject.Find("Maze").GetComponent<NavMeshSurface>();
         turtleAgent = monsterTurtle.AddComponent<NavMeshAgent>();
-        turtleAgent.speed = 0.2f;
-        turtleAgent.transform.position = turtleAgent.transform.position + new Vector3(0f, 5f, 0f);
+        turtleAgent.speed = 1f;
+        turtleAgent.radius = 0.1f;
+        
         mazeExit = GameObject.Find("Exit");
         turtleAgent.SetDestination(mazeExit.transform.position);
     }

@@ -59,8 +59,8 @@ public class PlayerController : MonoBehaviour
 
             if(pickedUpBanana == levelManager.GetBananaNumber())
             {
-                Vector3 turtleSpawn = monkey.transform.position;
-                turtleSpawn.y += 5f;
+                Vector3 turtleSpawn = collider.gameObject.transform.position;
+                
                 GameObject Turtle = Instantiate(turtlePrefab, turtleSpawn, Quaternion.identity);
             }
 
