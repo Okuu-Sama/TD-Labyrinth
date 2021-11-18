@@ -7,6 +7,8 @@ public class MonsterIABehaviour : MonoBehaviour
 {
     [SerializeField]
     private GameObject monsterTurtle;
+    [SerializeField]
+    private AudioClip spawnSound;
     private NavMeshSurface navMeshSurface;
     private NavMeshAgent turtleAgent;
 
@@ -15,7 +17,8 @@ public class MonsterIABehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        AudioSource.PlayClipAtPoint(spawnSound, gameObject.transform.position,0.4f);
+
         navMeshSurface = GameObject.Find("Maze").GetComponent<NavMeshSurface>();
         turtleAgent = monsterTurtle.AddComponent<NavMeshAgent>();
         turtleAgent.speed = 1f;

@@ -12,16 +12,27 @@ public class PlayerController : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     private int pickedUpBanana = 0;
     private int totalBanana;
+
     [SerializeField]
     private Text totalBananasText;
     [SerializeField]
     private Text levelBananasText;
     [SerializeField]
     private GameObject turtlePrefab;
+    [SerializeField]
+    private AudioClip spawningSound;
+    [SerializeField]
+    private AudioClip bananaPickUpSound;
+    [SerializeField]
+    private AudioClip reachExitSound;
+
     private string totalBananaFile;
     // Start is called before the first frame update
     void Start()
     {
+        AudioSource.PlayClipAtPoint(spawningSound, gameObject.transform.position);
+        AudioSource audioSource = GameObject.Find("AudioSource").GetComponent<AudioSource>();
+        audioSource.PlayDelayed(10f);
         monkey = GameObject.Find("Monkey");
         navMeshAgent = monkey.GetComponent<NavMeshAgent>();
         string bananasFile = System.IO.File.ReadAllText("Assets/Maze/Data/bananas.txt");
@@ -44,11 +55,16 @@ public class PlayerController : MonoBehaviour
         Debug.Log("nb of banana in lvl: " + levelManager.GetBananaNumber());
         if (collider.gameObject.name == "Exit" && levelManager.GetBananaNumber() == pickedUpBanana)
         {
+            GameObject.Find("FadeOutTransition").GetComponent<RawImage>().enabled = true;
+            GameObject.Find("FadeOutTransition").GetComponent<Animator>().SetTrigger("playfadeout");
+            AudioSource.PlayClipAtPoint(reachExitSound, gameObject.transform.position,0.3f);
             pickedUpBanana = 0;
-            SceneManager.LoadScene("MazeScene");
+            StartCoroutine(waitForSFXBeforeLoad());
         }
         if (collider.gameObject.name== "Banana(Clone)") 
         {
+            AudioSource.PlayClipAtPoint(bananaPickUpSound, gameObject.transform.position,0.5f);
+
             Destroy(collider.gameObject);
             pickedUpBanana++;
             totalBanana++;
@@ -100,5 +116,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
+    IEnumerator waitForSFXBeforeLoad()
+    {
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene("MazeScene");
+    }
 }
