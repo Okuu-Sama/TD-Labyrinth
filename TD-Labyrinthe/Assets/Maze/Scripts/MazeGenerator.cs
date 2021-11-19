@@ -75,7 +75,7 @@ public enum directions : int
     {
         int[] dir= new int[4] { (int) directions.N , (int)directions.S ,  (int)directions.E ,  (int)directions.W  };
         System.Random rand = new System.Random(System.Guid.NewGuid().GetHashCode());
-        dir = dir.OrderBy(x => rand.Next()).ToArray();
+        dir = dir.OrderBy(element => rand.Next()).ToArray();
         int currentDir;
         int new_x, new_y;
         for (int k = 0;k<dir.Length;k++) {

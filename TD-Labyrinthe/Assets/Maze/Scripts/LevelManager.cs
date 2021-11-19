@@ -53,7 +53,8 @@ public class LevelManager : MonoBehaviour
                 gridCopy[i,j] = grid[i, j];
             }
         }
-        System.IO.File.WriteAllText("Assets/Maze/Data/maze.txt", text);
+        //Debug.Log(Application.persistentDataPath);
+        //System.IO.File.WriteAllText(Application.persistentDataPath + "/Assets/Maze/Data/maze.txt", text);
 
         instanciateMaze(gridCopy, gridWidth, gridHeight);
         GameObject maze = GameObject.Find("Maze");

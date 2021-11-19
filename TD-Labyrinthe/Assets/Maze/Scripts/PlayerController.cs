@@ -35,7 +35,15 @@ public class PlayerController : MonoBehaviour
         audioSource.PlayDelayed(10f);
         monkey = GameObject.Find("Monkey");
         navMeshAgent = monkey.GetComponent<NavMeshAgent>();
-        string bananasFile = System.IO.File.ReadAllText("Assets/Maze/Data/bananas.txt");
+        string bananasFile;
+        if (Application.isEditor)
+        {
+            bananasFile = System.IO.File.ReadAllText("Assets/Maze/Data/bananas.txt");
+        }
+        else
+        {
+            bananasFile = System.IO.File.ReadAllText(Application.streamingAssetsPath + "bananas.txt");
+        }
         totalBanana = Int32.Parse(bananasFile);
 
     }
@@ -68,7 +76,15 @@ public class PlayerController : MonoBehaviour
             Destroy(collider.gameObject);
             pickedUpBanana++;
             totalBanana++;
-            System.IO.File.WriteAllText("Assets/Maze/Data/bananas.txt", totalBanana.ToString());
+            //System.IO.File.WriteAllText("Assets/Maze/Data/bananas.txt", totalBanana.ToString());
+            if (Application.isEditor)
+            {
+                System.IO.File.WriteAllText("Assets/Maze/Data/bananas.txt", totalBanana.ToString());
+            }
+            else
+            {
+                System.IO.File.WriteAllText(Application.streamingAssetsPath + "banana.txt", totalBanana.ToString());
+            }
             totalBananasText.text = totalBanana.ToString();
             levelBananasText.text = pickedUpBanana.ToString();
             //Debug.Log("Bananas of this level = " + pickedUpBanana + " Total bananas = " + totalBanana);

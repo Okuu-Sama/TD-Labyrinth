@@ -8,5 +8,14 @@ public class OnQuitManager : MonoBehaviour
     {
         int val = 0;
         System.IO.File.WriteAllText("Assets/Maze/Data/bananas.txt", val.ToString());
+        if (Application.isEditor)
+        {
+            System.IO.File.WriteAllText("Assets/Maze/Data/bananas.txt", val.ToString());
+        }
+        else
+        {
+            System.IO.File.WriteAllText(Application.streamingAssetsPath + "banana.txt", val.ToString());
+
+        }
     }
 }
