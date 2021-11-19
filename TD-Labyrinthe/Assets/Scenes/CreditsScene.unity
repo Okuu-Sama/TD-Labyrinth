@@ -1613,8 +1613,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Special Thanks to K\xE9vin Gallien, our game engine professor, for monitoring
-    and guiving guidelines during the production of this game"
+  m_Text: Special Thanks to Kevin Gallien, our game engine professor, for monitoring
+    and giving guidelines during the production of this game
 --- !u!222 &518977436
 CanvasRenderer:
   m_ObjectHideFlags: 0

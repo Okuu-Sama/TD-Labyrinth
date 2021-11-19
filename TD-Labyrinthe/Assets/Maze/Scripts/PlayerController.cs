@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.UpArrow))
         {
-            navMeshAgent.velocity += monkey.transform.forward*0.01f;
+            navMeshAgent.velocity += monkey.transform.forward*0.1f;
         }
     }
 
@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            navMeshAgent.velocity -= monkey.transform.forward*0.01f;
+            navMeshAgent.velocity -= monkey.transform.forward*0.1f;
         }
     }
 
@@ -140,7 +140,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            monkey.transform.Rotate(new Vector3(0f,0.5f,0f));
+            monkey.transform.Rotate(new Vector3(0f,0.5f*3,0f));
         }
     }
 
@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            monkey.transform.Rotate(new Vector3(0f, -0.5f, 0f));
+            monkey.transform.Rotate(new Vector3(0f, -0.5f*3, 0f));
         }
     }
 

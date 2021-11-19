@@ -120,9 +120,12 @@ public class LevelManager : MonoBehaviour
         navMeshAgent.Warp(new Vector3(0f,0f,0f));
         GameObject collider = Instantiate(GameObject.CreatePrimitive(PrimitiveType.Cube), new Vector3(position.x, position.y+3,position.z), Quaternion.identity);
         
-        //Hiding the primitive that was just created
+        //Destroying the primitive that was just created
         GameObject cube = GameObject.Find("Cube");
-        cube.SetActive(false);
+        Destroy(cube);
+
+        //Computing again the navmeshsurface
+        navMeshSurface.BuildNavMesh();
 
         collider.name = "Exit";
         collider.transform.localScale=new Vector3(4f,4f,4f);
