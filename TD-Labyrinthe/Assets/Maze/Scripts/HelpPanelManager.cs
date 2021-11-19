@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// The following class contain all the methods relative to the UI control of the panel guiding the player
 public class HelpPanelManager : MonoBehaviour
 {
     public void RemovePanel()

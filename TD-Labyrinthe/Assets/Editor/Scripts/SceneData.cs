@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// This class define the structure of a scene to be displayed in our SceneManager tab
 public class SceneData
 {
     public string sceneName;
