@@ -18,7 +18,7 @@ public class MonsterIABehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Playing the spawing sound of the turtle
+        // Playing the spawning sound of the turtle
         AudioSource.PlayClipAtPoint(spawnSound, gameObject.transform.position,0.4f);
 
         navMeshSurface = GameObject.Find("Maze").GetComponent<NavMeshSurface>();

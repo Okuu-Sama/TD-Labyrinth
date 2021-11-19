@@ -16,6 +16,7 @@ public static class ExtensionScript
     {
         
     }*/
+   //Getting the path distance between NavMeshAgent position and given position
     public static float GetPathRemainingDistance(this NavMeshAgent navMeshAgent)
     {
         //Debug.Log("path pending is " + navMeshAgent.pathPending + ", path status is " + navMeshAgent.pathStatus + ", path corners length is " + navMeshAgent.path.corners.Length);
